@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaHub MVP</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230095f6'/%3E%3Ctext x='50' y='60' font-size='50' text-anchor='middle' fill='white'%3EI%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">InstaHub</h1>
+            <div class="nav-links">
+                <a href="#" onclick="showFeed()">Home</a>
+                <a href="#" onclick="showSearch()">Search</a>
+                <a href="#" onclick="showProfile()">Profile</a>
+                <a href="#" onclick="showNotifications()">Notifications</a>
+                <button onclick="logout()" class="btn-logout">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login/Register Section -->
+    <div id="auth-section" class="auth-container">
+        <div class="auth-box">
+            <h2>Welcome to InstaHub</h2>
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" style="display: none;">
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <textarea id="register-bio" placeholder="Bio (optional)"></textarea>
+                <input type="file" id="register-profile-image" accept="image/*">
+                <label for="register-profile-image" class="file-label">Profile Picture (optional)</label>
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-section" class="main-container" style="display: none;">
+        <!-- Feed View -->
+        <div id="feed-view" class="content-view">
+            <div class="feed-header">
+                <h2>Your Feed</h2>
+                <button onclick="showCreatePost()" class="btn-primary">Create Post</button>
+            </div>
+            <div id="feed-posts" class="posts-container"></div>
+        </div>
+
+        <!-- Create Post View -->
+        <div id="create-post-view" class="content-view" style="display: none;">
+            <div class="create-post-container">
+                <h2>Create New Post</h2>
+                <form id="create-post-form">
+                    <div class="file-upload-area">
+                        <input type="file" id="post-image" accept="image/*" required>
+                        <label for="post-image" class="file-label-large">
+                            <span>Click to upload image</span>
+                        </label>
+                        <img id="post-image-preview" style="display: none; max-width: 100%; margin-top: 10px;">
+                    </div>
+                    <textarea id="post-caption" placeholder="Write a caption..." rows="4"></textarea>
+                    <div class="form-actions">
+                        <button type="button" onclick="showFeed()" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Search View -->
+        <div id="search-view" class="content-view" style="display: none;">
+            <div class="search-container">
+                <h2>Search Users</h2>
+                <input type="text" id="search-input" placeholder="Search by username..." onkeyup="searchUsers()">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profile-view" class="content-view" style="display: none;">
+            <div id="profile-content"></div>
+        </div>
+
+        <!-- Notifications View -->
+        <div id="notifications-view" class="content-view" style="display: none;">
+            <div class="notifications-container">
+                <h2>Notifications</h2>
+                <div id="notifications-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Modal -->
+    <div id="post-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closePostModal()">&times;</span>
+            <div id="modal-post-content"></div>
+            <div id="modal-comments"></div>
+            <form id="comment-form">
+                <input type="text" id="comment-input" placeholder="Add a comment..." required>
+                <button type="submit" class="btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/frontend/app.js"></script>
+</body>
+</html>
+
